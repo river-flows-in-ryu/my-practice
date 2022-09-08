@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 // const prisma = require("../../util/prisma");
+import { withSessionRoute } from "../../lib/withSession";
 
 const get = async (response_payload) => {
     const test = "next api 테스트";
@@ -39,4 +40,4 @@ async function handler(req, res) {
     }
 }
 
-export default handler;
+export default withSessionRoute(handler);

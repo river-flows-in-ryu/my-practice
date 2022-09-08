@@ -5,6 +5,6 @@ import { BottomWrap } from "../../styles/components/layouts/bottom";
 export default function Bottom() {
     return (
         //
-        <BottomWrap>bottom</BottomWrap>
+        <BottomWrap>Copyright RYU. All Rights Reserved. </BottomWrap>
     );
 }
