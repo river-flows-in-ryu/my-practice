@@ -1,18 +1,20 @@
 import NextAuth from "next-auth";
 import KakaoProvider from "next-auth/providers/kakao";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-export const authOptions = {
-    // Configure one or more authentication providers
+import { prisma } from "../../../util/prisma";
+
+export default NextAuth({
+    adapter: PrismaAdapter(prisma),
     providers: [
-        // GithubProvider({
-        //     clientId: process.env.GITHUB_ID,
-        //     clientSecret: process.env.GITHUB_SECRET,
-        // }),
         KakaoProvider({
             clientId: process.env.KAKAO_CLIENT_ID,
             clientSecret: process.env.KAKAO_CLIENT_SECRET,
         }),
-        // ...add more providers here
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
     ],
-};
-export default NextAuth(authOptions);
+});

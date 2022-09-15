@@ -2,9 +2,9 @@ import React from "react";
 import useSWR from "swr";
 
 import { withSessionSsr } from "../lib/withSession";
-import Layout from "../components/layouts/layout";
+import { useSession } from "next-auth/react";
 
-import { Main } from "../styles/pages";
+import Layout from "../components/layouts/layout";
 
 export const getServerSideProps = withSessionSsr(
     async function getServerSideProps({ req }) {
@@ -17,12 +17,14 @@ export const getServerSideProps = withSessionSsr(
 export default function Index({}) {
     const fetcher = (...args) => fetch(...args).then((res) => res.json());
     const { data, error } = useSWR("/api/hello", fetcher);
+    const { data: sessionData, status } = useSession();
+
     if (!data) {
         return <>loading</>;
     }
     return (
         //
-        <Main>{data.result}</Main>
+        <>{sessionData ? <>{sessionData?.user?.name}</> : <>로그인하셈</>}</>
     );
 }
 
